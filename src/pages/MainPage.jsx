@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { fetchCars } from '../store/carsSlice';
 
 import { Header } from '../components/Header';
@@ -11,6 +12,8 @@ function MainPage() {
   const dispatch = useDispatch();
 
   const cars = useSelector(state => state.cars.cars);
+  const currentUser = useSelector(state => state.users.currentUser);
+  console.log(currentUser);
 
   useEffect(() => {
     try {
@@ -24,7 +27,7 @@ function MainPage() {
   return (
     <div className='main__wrapper'>
       <Menu />
-      <Header />
+      <Header {...currentUser} />
       <main className='main__content'>
         <RentCarPage cars={cars} /> 
       </main>

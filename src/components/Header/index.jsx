@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from './Header.module.scss';
 
-function Header() {
+function Header({avatar, login}) {
   return (
     <header>
       <div className={styles.headerSearch}>
@@ -13,8 +13,8 @@ function Header() {
         <img src='/img/notifications.png' alt="Notifications" />
       </div>
       <div className={styles.headerUser}>
-        <img src='/img/avatar.png' alt='Avatar' />
-        <span>User 1</span>
+        <img src={avatar} alt='Avatar' />
+        <span>{login || 'User test'}</span>
       </div>
     </header>
   )

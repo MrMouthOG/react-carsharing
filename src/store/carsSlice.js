@@ -17,11 +17,16 @@ const carsSlice = createSlice({
   },
   reducers: {},
   extraReducers: {
+    [fetchCars.pending]: (state, action) => {
+      console.log('Список автомобилей загружается');
+    },
     [fetchCars.fulfilled]: (state, action) => {
       state.cars = action.payload;
     },
+    [fetchCars.rejected]: (state, action) => {
+      console.log("Произошла ошибка при загрузке списка автомобилей");
+    }
   },
 });
 
-export const { reloadCars } = carsSlice.actions;
 export default carsSlice.reducer;
