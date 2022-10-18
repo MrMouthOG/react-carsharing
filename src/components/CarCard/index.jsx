@@ -1,8 +1,8 @@
 import React from 'react';
 
-import styles from './CarCart.module.scss';
+import styles from './CarCard.module.scss';
 
-function CarCart({ model, city, imageUrl, tank, baby, right, price }) {
+function CarCard({ model, city, imageUrl, tank, baby, right, price }) {
   return (
     <div className={styles.rentItem}>
       <img src={imageUrl} alt='Car' />
@@ -31,4 +31,4 @@ function CarCart({ model, city, imageUrl, tank, baby, right, price }) {
   )
 }
 
-export { CarCart };
+export { CarCard };

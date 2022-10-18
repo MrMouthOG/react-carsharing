@@ -1,38 +1,35 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCars } from '../store/carsSlice';
 
-//Components
 import { Header } from '../components/Header';
 import { Menu } from '../components/Menu';
-import RentCarPage from '../pages/RentCarPage';
+import { RentCarPage } from '../pages/RentCarPage';
 import { NotFound } from './NotFound';
 
 function MainPage() {
-  const [cars, setCars] = useState([]);
+  const dispatch = useDispatch();
+
+  const cars = useSelector(state => state.cars.cars);
 
   useEffect(() => {
-    async function fetchCars() {
-      try {
-        const { data } = await axios.get('https://634d1979f5d2cc648e9c558d.mockapi.io/Cars');
-        setCars(data);
-      } catch (error) {
-        alert('Не удалось получить список автомобилей');
-        console.log(error);
-      }
+    try {
+      dispatch(fetchCars());
+    } catch (error) {
+      alert('При загрузке автомобилей произошла ошибка');
+      console.error(error);
     }
-    fetchCars();
-  }, []);
+  }, [dispatch])
   
   return (
     <div className='main__wrapper'>
       <Menu />
       <Header />
       <main className='main__content'>
-        <NotFound />
-        {/* <RentCarPage cars={cars} /> */}
+        <RentCarPage cars={cars} /> 
       </main>
     </div>
   )
 }
 
-export default MainPage;
+export { MainPage };

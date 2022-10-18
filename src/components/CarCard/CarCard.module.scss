@@ -4,6 +4,12 @@
   align-items: center;
   padding: 15px;
 
+  img {
+    width: 177px;
+    height: 105px;
+    border-radius: 8px;
+  }
+
   &Description {
     display: flex;
     flex-direction: column;
@@ -25,7 +31,7 @@
   }
 
   &Cost {
-    font-size: 28px;
+    font-size: 24px;
     color: #165181;
   }
 }

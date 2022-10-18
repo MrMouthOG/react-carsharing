@@ -1,23 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 function LoginPage() {
   const [users, setUsers] = useState([]);
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
-
-  useEffect(() => {
-    async function fetchUsers() {
-      try {
-        const { data } = await axios.get('https://634d1979f5d2cc648e9c558d.mockapi.io/Users');
-        setUsers(data);
-      } catch (error) {
-        alert('Произошла ошибка при загрузке пользователей');
-        console.error(error);
-      }
-    }
-    fetchUsers();
-  }, []);
 
   const onChangeLogin = (e) => {
     setLogin(e.target.value);
@@ -46,7 +34,9 @@ function LoginPage() {
           <label>Пароль:</label>
           <input type="password" value={password} onChange={onChangePassword} placeholder='Введите пароль' />
           <div className='login__btns'>
-            <button className='btn'>Войти</button>
+            <Link to='/'>
+              <button className='btn'>Войти</button>
+            </Link>
           </div>
         </form>
       </div>
@@ -54,4 +44,4 @@ function LoginPage() {
   )
 }
 
-export default LoginPage;
+export { LoginPage };

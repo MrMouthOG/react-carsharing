@@ -5,6 +5,10 @@
   font-family: "Roboto", sans-serif;
 }
 
+a {
+  text-decoration: none;
+}
+
 .btn {
   width: 220px;
   height: 58px;
@@ -112,5 +116,9 @@
     background-color: #fff;
     border-radius: 15px;
     margin: 0 20px;
+  }
+
+  .btn {
+    width: 150px;
   }
 }
