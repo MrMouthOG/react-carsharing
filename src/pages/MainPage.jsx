@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 //Components
-import Header from '../components/Header';
-import NavBar from '../components/NavBar';
+import { Header } from '../components/Header';
+import { Menu } from '../components/Menu';
 import RentCarPage from '../pages/RentCarPage';
-import NotFound from './NotFound';
+import { NotFound } from './NotFound';
 
 function MainPage() {
   const [cars, setCars] = useState([]);
@@ -25,12 +25,12 @@ function MainPage() {
   
   return (
     <div className='main__wrapper'>
-      <NavBar />
+      <Menu />
       <Header />
-      <div className='main__content'>
-        {/* <NotFound /> */}
-        <RentCarPage cars={cars} />
-      </div>
+      <main className='main__content'>
+        <NotFound />
+        {/* <RentCarPage cars={cars} /> */}
+      </main>
     </div>
   )
 }

@@ -29,7 +29,7 @@ function LoginPage() {
 
   const onClickEnter = (e) => {
     e.preventDefault();
-    console.log('Need to do something');
+    console.log('Need to do something: ', login, typeof(login),password, typeof(password));
   }
 
   return (
@@ -46,7 +46,7 @@ function LoginPage() {
           <label>Пароль:</label>
           <input type="password" value={password} onChange={onChangePassword} placeholder='Введите пароль' />
           <div className='login__btns'>
-            <button className='btn'>Enter</button>
+            <button className='btn'>Войти</button>
           </div>
         </form>
       </div>

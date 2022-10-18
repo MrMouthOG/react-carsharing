@@ -1,16 +1,18 @@
 import React from 'react';
 
+import styles from './Header.module.scss';
+
 function Header() {
   return (
     <header>
-      <div className='header__search'>
+      <div className={styles.headerSearch}>
         <img src='/img/search.png' alt="Search" />
         <input type="text" placeholder='Search...' />
       </div>
-      <div className='header__notifications'>
+      <div className={styles.headerNotifications}>
         <img src='/img/notifications.png' alt="Notifications" />
       </div>
-      <div className='header__user'>
+      <div className={styles.headerUser}>
         <img src='/img/avatar.png' alt='Avatar' />
         <span>User 1</span>
       </div>
@@ -18,4 +20,4 @@ function Header() {
   )
 }
 
-export default Header;
+export { Header };

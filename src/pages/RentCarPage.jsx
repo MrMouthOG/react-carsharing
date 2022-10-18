@@ -1,7 +1,7 @@
 import React from 'react';
 
 //Components
-import CarCart from '../components/CarCart';
+import { CarCart } from '../components/CarCart';
 
 function RentCarPage({cars}) {
   return (
