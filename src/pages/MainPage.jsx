@@ -24,13 +24,13 @@ function MainPage() {
   }, [dispatch])
   
   return (
-    <div className='main__wrapper'>
-      <Menu />
-      <Header {...currentUser} />
-      <main className='main__content'>
+    // <div className='main__wrapper'>
+    //   <Menu />
+    //   <Header {...currentUser} />
+    //   <main className='main__content'>
         <RentCarPage cars={cars} /> 
-      </main>
-    </div>
+      // </main>
+    // </div>
   )
 }
 

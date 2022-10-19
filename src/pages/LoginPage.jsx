@@ -46,24 +46,20 @@ function LoginPage() {
         <span>Авторизация</span>
         <form onSubmit={onClickEnter}>
           <label>Логин:</label>
-          <input 
-            type="text" 
-            value={login} 
-            onChange={(e) => setLogin(e.target.value)} 
-            placeholder='Введите логин' 
+          <input
+            type="text"
+            value={login}
+            onChange={(e) => setLogin(e.target.value)}
+            placeholder='Введите логин'
           />
           <label>Пароль:</label>
-          <input 
-            type="password" 
-            value={password} 
-            onChange={(e) => setPassword(e.target.value)} 
-            placeholder='Введите пароль' 
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder='Введите пароль'
           />
-          <div className='login__btns'>
-            {/* <Link to='/'> */}
-              <button className='btn'>Войти</button>
-            {/* </Link> */}
-          </div>
+          <button className='btn'>Войти</button>
         </form>
       </div>
     </div>
