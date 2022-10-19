@@ -9,7 +9,7 @@ function LoginPage() {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const users = useSelector(state => state.users.users);
+  const users = useSelector((state) => state.users.users);
 
   const dispatch = useDispatch();
 
@@ -24,7 +24,9 @@ function LoginPage() {
 
   const onClickEnter = (e) => {
     e.preventDefault();
-    const userExist = users.find(user => (user.login === login) && (String(user.password) === password));
+    const userExist = users.find(
+      (user) => user.login === login && String(user.password) === password,
+    );
 
     if (userExist) {
       dispatch(setCurrentUser(userExist));
@@ -34,15 +36,15 @@ function LoginPage() {
       setLogin('');
       setPassword('');
     }
-  }
+  };
 
   return (
-    <div className='login__wrapper'>
-      <div className='login__logo'>
+    <div className="login__wrapper">
+      <div className="login__logo">
         <img src="/img/logo.svg" alt="Logo" />
         <span>Need for car</span>
       </div>
-      <div className='login__form'>
+      <div className="login__form">
         <span>Авторизация</span>
         <form onSubmit={onClickEnter}>
           <label>Логин:</label>
@@ -50,20 +52,20 @@ function LoginPage() {
             type="text"
             value={login}
             onChange={(e) => setLogin(e.target.value)}
-            placeholder='Введите логин'
+            placeholder="Введите логин"
           />
           <label>Пароль:</label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder='Введите пароль'
+            placeholder="Введите пароль"
           />
-          <button className='btn'>Войти</button>
+          <button className="btn">Войти</button>
         </form>
       </div>
     </div>
-  )
+  );
 }
 
 export { LoginPage };

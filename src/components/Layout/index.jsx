@@ -6,14 +6,14 @@ import { Menu } from '../Menu';
 
 function Layout() {
   return (
-    <div className='main__wrapper'>
+    <div className="main__wrapper">
       <Menu />
       <Header />
-      <main className='main__content'>
+      <main className="main__content">
         <Outlet />
       </main>
     </div>
-  )
+  );
 }
 
 export { Layout };
