@@ -2,10 +2,8 @@ import React from 'react';
 
 import { NotFoundBlock } from '../components/NotFoundBlock';
 
-function NotFound() {
-  return (
-    <NotFoundBlock />
-  )
+function NotFoundPage() {
+  return <NotFoundBlock />;
 }
 
-export { NotFound };
+export { NotFoundPage };
