@@ -1,8 +1,11 @@
-import React from 'react'
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import styles from './NotFoundBlock.module.scss';
 
 function NotFoundBlock() {
+  const navigate = useNavigate();
+
   return (
     <div className={styles.wrapper}>
       <h1>
@@ -11,7 +14,7 @@ function NotFoundBlock() {
         Что-то пошло не так
       </h1>
       <p>Попробуйте ещё раз позднее</p>
-      <button className='btn'>Назад</button>
+      <button onClick={() => navigate(-1)} className='btn'>Назад</button>
     </div>
   )
 }

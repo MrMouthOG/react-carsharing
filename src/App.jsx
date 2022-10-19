@@ -9,7 +9,7 @@ function App() {
   return (
     <Routes>
       <Route path='/' element={ <MainPage /> } />
-      <Route path='/login' element={ <LoginPage /> } />
+      <Route path='/login' index element={ <LoginPage /> } />
       <Route path='*' element={ <NotFound /> } />
     </Routes>
   );

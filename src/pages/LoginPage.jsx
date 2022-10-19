@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { fetchUsers, setCurrentUser } from '../store/usersSlice';
 
 function LoginPage() {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const users = useSelector(state => state.users.users);
-  const currentUser = useSelector(state => state.users.currentUser);
 
   const dispatch = useDispatch();
 
@@ -26,13 +26,16 @@ function LoginPage() {
     e.preventDefault();
     const userExist = users.find(user => (user.login === login) && (String(user.password) === password));
 
-    console.log(userExist);
-
     if (userExist) {
       dispatch(setCurrentUser(userExist));
+      navigate('/');
+    } else {
+      alert('Вы ввели неверные данные');
+      setLogin('');
+      setPassword('');
     }
   }
-  
+
   return (
     <div className='login__wrapper'>
       <div className='login__logo'>

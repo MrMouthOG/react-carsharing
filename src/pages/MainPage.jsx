@@ -13,7 +13,6 @@ function MainPage() {
 
   const cars = useSelector(state => state.cars.cars);
   const currentUser = useSelector(state => state.users.currentUser);
-  console.log(currentUser);
 
   useEffect(() => {
     try {

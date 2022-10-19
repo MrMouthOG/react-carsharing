@@ -7,7 +7,7 @@ function Header({avatar, login}) {
     <header>
       <div className={styles.headerSearch}>
         <img src='/img/search.png' alt="Search" />
-        <input type="text" placeholder='Search...' />
+        <input type="text" placeholder='Поиск...' />
       </div>
       <div className={styles.headerNotifications}>
         <img src='/img/notifications.png' alt="Notifications" />
