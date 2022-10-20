@@ -2,40 +2,89 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { fetchUsers, setCurrentUser } from '../store/usersSlice';
+// import { toggleTokenForUser } from '../store/usersSlice';
+import { setCurrentUser } from '../store/usersSlice';
+// import { useAuth } from '../hooks/useAuth';
 
-function LoginPage() {
+function LoginPage({ usersList }) {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
-
-  const users = useSelector((state) => state.users.users);
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    try {
-      dispatch(fetchUsers());
-    } catch (error) {
-      alert('Ошибка при загрузке пользователей, компонент логин');
-      console.error(error);
-    }
-  }, [dispatch]);
+  // const [singIn] = useAuth();
+
+  // const dispatch = useDispatch();
+  const navigate = useNavigate();
+  // // const location = useLocation();
+
+  // const users = useSelector((state) => state.users.users);
+  // const fromPage = location.state?.from?.pathname || '/';
+
+  // useEffect(() => {
+  //   try {
+  //     dispatch(fetchUsers());
+  //     console.log('fetching users');
+  //   } catch (error) {
+  //     alert('Ошибка при загрузке пользователей, LoginPage');
+  //     console.error(error);
+  //   }
+  // }, [dispatch]);
 
   const onClickEnter = (e) => {
     e.preventDefault();
-    const userExist = users.find(
-      (user) => user.login === login && String(user.password) === password,
-    );
+    //Поиск пользователя по логину и паролю
+    const currentUser = usersList.find((user) => {
+      return user.login === login && String(user.password) === password;
+    });
 
-    if (userExist) {
-      dispatch(setCurrentUser(userExist));
+    if (currentUser) {
+      dispatch(setCurrentUser(currentUser));
       navigate('/');
     } else {
       alert('Вы ввели неверные данные');
-      setLogin('');
-      setPassword('');
     }
+
+    // //Проверка на совпадение
+    // if (currentUser) {
+    //   const hasToken = currentUser.isAuth; //Проверка на существование токена у пользователя
+    //   //Если токена нет, создаем его, записываем в локалстораге и на бек
+    //   if (!hasToken) {
+    //     const token = `${currentUser.id}${currentUser.login}${currentUser.password}`;
+    //     localStorage.setItem('isAuth', token);
+    //     dispatch(toggleTokenForUser({ ...currentUser, isAuth: token }));
+    //     navigate('/');
+    //     console.log('Авторизация прошла успешно', token);
+    //   }
+    // } else {
+    //   alert('Вы ввели неверные данные');
+    // }
+
+    // const userExist = users.find((user) => {
+    //   return user.login === login && String(user.password) === password;
+    // });
+    // const userExist = users.find(
+    //   (user) => user.login === login && String(user.password) === password,
+    // );
+
+    // if (userExist) {
+    //   console.log('Login page, singin');
+    //   singIn(userExist);
+    //   navigate('/');
+    //   setLogin('');
+    //   setPassword('');
+    // } else {
+    //   console.log('LoginPage, user doesnt exist');
+    // }
+
+    // if (userExist) {
+    //   dispatch(setCurrentUser(userExist));
+    //   navigate('/');
+    // } else {
+    //   alert('Вы ввели неверные данные');
+    //   setLogin('');
+    //   setPassword('');
+    // }
   };
 
   return (
@@ -53,6 +102,7 @@ function LoginPage() {
             value={login}
             onChange={(e) => setLogin(e.target.value)}
             placeholder="Введите логин"
+            required
           />
           <label>Пароль:</label>
           <input
@@ -60,6 +110,7 @@ function LoginPage() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Введите пароль"
+            required
           />
           <button className="btn">Войти</button>
         </form>

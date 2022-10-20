@@ -1,32 +1,23 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-
-export const fetchCars = createAsyncThunk(
-  'cars/fetchCars',
-  async function () {
-    const { data } = await axios.get('https://634d1979f5d2cc648e9c558d.mockapi.io/cars');
-
-    return data;
-  }
-);
+import { createSlice } from "@reduxjs/toolkit";
 
 const carsSlice = createSlice({
   name: 'cars',
   initialState: {
-    cars: []
+    cars: [],
+    rentedCars: [],
   },
-  reducers: {},
-  extraReducers: {
-    [fetchCars.pending]: (state, action) => {
-      console.log('Список автомобилей загружается');
-    },
-    [fetchCars.fulfilled]: (state, action) => {
+  reducers: {
+    setCarsList(state, action) {
       state.cars = action.payload;
     },
-    [fetchCars.rejected]: (state, action) => {
-      console.log("Произошла ошибка при загрузке списка автомобилей");
+    setRentedCarsList(state, action) {
+      state.rentedCars = action.payload;
+    },
+    cancelCarRent(state, action) {
+      state.rentedCars = state.rentedCars.filter(item => item.id !== action.payload);
     }
   },
 });
 
+export const { setCarsList, setRentedCarsList } = carsSlice.actions;
 export default carsSlice.reducer;
