@@ -1,13 +1,42 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
+import { ReactComponent as LogOutSvg } from '../../assets/logout.svg';
 import styles from './Header.module.scss';
 
 function Header() {
-  const user = useSelector((state) => state.users.currentUser);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [isOpenPopUp, setIsOpenPopUp] = useState(false);
+  const navigate = useNavigate();
 
-  const avatar = user?.avatar;
-  const login = user?.login;
+  useEffect(() => {
+    async function fetchUser() {
+      const token = localStorage.getItem('isAuth');
+      try {
+        const { data } = await axios.get(
+          `https://634d1979f5d2cc648e9c558d.mockapi.io/users?isAuth=${token}`,
+        );
+
+        setCurrentUser(data[0]);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchUser();
+  }, []);
+
+  const logOut = () => {
+    axios.put(`https://634d1979f5d2cc648e9c558d.mockapi.io/users/${currentUser.id}`, {
+      ...currentUser,
+      isAuth: null,
+    });
+    localStorage.removeItem('isAuth');
+    navigate('/login');
+  };
+
+  const avatar = currentUser?.avatar;
+  const login = currentUser?.login;
 
   return (
     <header>
@@ -18,10 +47,20 @@ function Header() {
       <div className={styles.headerNotifications}>
         <img src="/img/notifications.png" alt="Notifications" />
       </div>
-      <div className={styles.headerUser}>
+      <div className={styles.headerUser} onClick={() => setIsOpenPopUp((prev) => !prev)}>
         <img src={avatar} alt="Avatar" />
         <span>{login || 'User test'}</span>
       </div>
+      {isOpenPopUp && (
+        <div onClick={logOut} className={styles.headerPopup}>
+          <ul>
+            <li>
+              <LogOutSvg />
+              Выйти
+            </li>
+          </ul>
+        </div>
+      )}
     </header>
   );
 }

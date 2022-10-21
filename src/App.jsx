@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 
 import { setUsersList } from './store/usersSlice';
+import { AddCarPage } from './pages/AddCarPage';
 import { LoginPage } from './pages/LoginPage';
 import { ChoiseCarPage } from './pages/ChoiseCarPage';
 import { NotFoundPage } from './pages/NotFoundPage';
@@ -33,19 +34,7 @@ function App() {
       }
     }
     fetchUsers();
-    // dispatch(fetchUsers());
     // localStorage.removeItem('isAuth');
-    // console.log('App, UseEffect, fetchUsers');
-
-    // return () => {
-    //   console.log('App, willUnmount, delete token');
-    //   const token = localStorage.getItem('isAuth');
-    //   const deleteToken = usersList.find((user) => user.isAuth === token);
-
-    //   if (token) {
-    //     dispatch(toggleTokenForUser({ ...deleteToken, isAuth: null }));
-    //   }
-    // };
   }, [dispatch]);
 
   return (
@@ -59,7 +48,7 @@ function App() {
           </RequireAuth>
         }>
         <Route path="/" element={<ChoiseCarPage />} />
-        <Route path="/add" element={<h1>Добавить автомобиль</h1>} />
+        <Route path="/add" element={<AddCarPage />} />
         <Route path="/rented" element={<RentedCarsPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>

@@ -1,38 +1,40 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-
-// import { useAuth } from '../hooks/useAuth';
+import { Navigate, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function RequireAuth({ children }) {
-  const currentUser = useSelector((state) => state.users.currentUser);
+  const navigate = useNavigate();
 
-  if (!currentUser) {
-    return <Navigate to="login" />;
+  const fetchUser = async (token) => {
+    const { data } = await axios.get(
+      `https://634d1979f5d2cc648e9c558d.mockapi.io/users?isAuth=${token}`,
+    );
+
+    return data;
+  };
+
+  const isAuth = () => {
+    const token = localStorage.getItem('isAuth');
+
+    if (!token) {
+      return false;
+    }
+
+    fetchUser(token)
+      .then((data) => {
+        if (!data.length) {
+          return false;
+        }
+        return true;
+      })
+      .then((answer) => (answer ? children : navigate('login')));
+  };
+
+  isAuth();
+
+  if (false) {
+    <Navigate to="login" />;
   }
-  // const [userIsAuth] = useAuth();
-
-  // const usersList = useSelector((state) => state.users.users);
-
-  // const token = localStorage.getItem('isAuth');
-  // console.log(usersList);
-  // const isAccess = usersList.find((user) => user.isAuth === token);
-  // console.log(isAccess);
-  // const location = useLocation();
-  // const [singIn, signOut, isAuth] = useAuth();
-  // const isUserAuth = useRef(false);
-  // console.log(isUserAuth);
-
-  // useEffect(() => {
-  //   const token = localStorage.getItem('isAuth');
-  //   // isUserAuth.current = isAuth(token);
-  //   // console.log(isUserAuth);
-  // }, []);
-
-  // if (!isUserAuth.current) {
-  //   console.log('auth is false');
-  //   return <Navigate to="/login" state={{ from: location }} />;
-  // }
 
   return children;
 }

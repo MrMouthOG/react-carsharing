@@ -1,55 +1,42 @@
-import { useCallback } from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { Navigate, useNavigate } from 'react-router-dom';
 
 export function useAuth() {
-  // const users = useSelector(state => state.users.users);
-  // const dispatch = useDispatch();
+  const fetchUser = async (token) => {
+    const { data } = await axios.get(
+      `https://634d1979f5d2cc648e9c558d.mockapi.io/users?search=${token}`,
+    );
 
-  const userIsAuth = (user) => {
-    return localStorage.getItem('isAuth') === user.isAuth;
-  }
+    return data;
+  };
 
-  const singIn = (user) => {
+  const isAuth = (children) => {
+    const token = localStorage.getItem('isAuth');
+    console.log('1 isAuth start with token: ', token);
 
-  }
+    if (!token) {
+      return false;
+    }
 
-  // const userExist = (login, password) => {
-  //   const userExist = users.find(user => user.login === login && String(user.password) === password);
+    fetchUser(token)
+      .then((data) => {
+        if (!data.length) {
+          console.log('3 Data not exist', data.length);
+          return false;
+        }
+        console.log('3 Data is exist');
+        return true;
+      })
+      .then((answer) => {
+        if (!answer) {
+          console.log('4 Net takogo');
+          return <Navigate to="login" />;
+        }
+        console.log('4 show lca');
+        return children;
+      });
+  };
 
-  //   if (userExist) {
-  //     return userExist
-  //   }
-  //   return null;
-  // }
 
-  // const auth = (token) => {
-  //   console.log('auth start');
-  //   if (users.find(user => user.isAuth === token)) {
-  //     return true;
-  //   }
-  //   return false;
-  // }
-
-  // const isAuth = useCallback(auth, [users]);
-
-  // const singIn = (user) => {
-  //   const { id, login, password } = user;
-  //   console.log('sing in');
-
-  //   const token = `${id}${login}${password}`;
-  //   console.log(token);
-
-  //   const result = { ...user, isAuth: token };
-
-  //   localStorage.setItem('isAuth', token);
-
-  //   dispatch(sendToken(result));
-  // }
-
-  // const signOut = () => {
-  //   removeCurrentUser();
-  // }
-
-  // return [singIn, signOut, isAuth];
-  return [userIsAuth];
+  return [isAuth];
 }

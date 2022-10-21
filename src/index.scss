@@ -120,14 +120,8 @@ a {
 }
 
 .rent-car__wrapper {
-  // h2 {
-  //   font-size: 32px;
-  //   font-weight: 400;
-  //   color: #3D5170;
-  //   padding-bottom: 20px;
-  // }
-
   .rent-car__items {
+    max-height: 75vh;
     background-color: #fff;
     border-radius: 15px;
   }
