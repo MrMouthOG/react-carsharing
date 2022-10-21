@@ -1,0 +1,65 @@
+.menuWrapper {
+  width: 100%;
+  height: 100vh;
+  background-color: #fff;
+  border-right: 1px solid #CACEDB;
+  grid-column: 1 / 2;
+  grid-row: 1 / 6;
+
+  .menuLogo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 75px;
+    
+    svg {
+      width: 40px;
+      height: 40px;
+    }
+
+    span {
+      font-size: 26px;
+      margin-left: 10px;
+    }
+  }
+
+  .menuItems {
+    display: flex;
+    flex-direction: column;
+
+    .menuItem {
+      display: flex;
+      align-items: center;
+      padding: 20px;
+      border-top: 1px solid #CACEDB;
+      border-bottom: 1px solid #CACEDB;
+      cursor: pointer;
+
+      &:hover {
+        color: #007BFF;
+
+        svg {
+          path {
+            fill: #007BFF;
+          }
+        }
+      }
+
+      span {
+        margin-left: 10px;
+      }
+    }
+    
+    .active {
+      background-color: #FBFBFB;
+      border-left: 5px solid #007BFF;
+      color: #007BFF;
+
+      svg {
+        path {
+          fill: #007BFF;
+        }
+      }
+    }
+  }
+}
