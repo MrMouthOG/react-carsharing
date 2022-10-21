@@ -1,57 +1,86 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+import { fetchUserByLogin } from '../store/usersSlice';
+import { ReactComponent as LogoSvg } from '../assets/logo.svg';
+
 function LoginPage() {
-  const [users, setUsers] = useState([]);
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
 
+  const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.users.currentUser);
+
   useEffect(() => {
-    async function fetchUsers() {
-      try {
-        const { data } = await axios.get('https://634d1979f5d2cc648e9c558d.mockapi.io/Users');
-        setUsers(data);
-      } catch (error) {
-        alert('Произошла ошибка при загрузке пользователей');
-        console.error(error);
-      }
-    }
-    fetchUsers();
-  }, []);
+    console.log(currentUser);
+  });
 
-  const onChangeLogin = (e) => {
-    setLogin(e.target.value);
-  }
-
-  const onChangePassword = (e) => {
-    setPassword(String(e.target.value));
-  }
-
-  const onClickEnter = (e) => {
+  const singInHandler = (e) => {
     e.preventDefault();
-    console.log('Need to do something');
-  }
+
+    dispatch(fetchUserByLogin({ login, password }));
+
+    console.log(currentUser);
+    if (currentUser?.isAuth) {
+      console.log('CurrentUser is exist and isAuth isnt false');
+    }
+  };
+
+  // const navigate = useNavigate();
+
+  // const onClickEnter = (e) => {
+  //   e.preventDefault();
+
+  //   const currentUser = usersList.find((user) => {
+  //     return user.login === login && String(user.password) === password;
+  //   });
+
+  //   if (currentUser) {
+  //     const token = `${currentUser.id}${currentUser.login}${currentUser.password}`;
+  //     const userWithToken = { ...currentUser, isAuth: token };
+  //     axios.put(
+  //       `https://634d1979f5d2cc648e9c558d.mockapi.io/users/${userWithToken.id}`,
+  //       userWithToken,
+  //     );
+  //     localStorage.setItem('isAuth', token);
+  //     navigate('/');
+  //   } else {
+  //     alert('Вы ввели неверные данные');
+  //   }
+  // };
 
   return (
-    <div className='login__wrapper'>
-      <div className='login__logo'>
-        <img src="/img/logo.svg" alt="Logo" />
+    <div className="login__wrapper">
+      <div className="login__logo">
+        <LogoSvg />
         <span>Need for car</span>
       </div>
-      <div className='login__form'>
+      <div className="login__form">
         <span>Авторизация</span>
-        <form onSubmit={onClickEnter}>
+        <form onSubmit={singInHandler}>
           <label>Логин:</label>
-          <input type="text" value={login} onChange={onChangeLogin} placeholder='Введите логин' />
+          <input
+            type="text"
+            value={login}
+            onChange={(e) => setLogin(e.target.value)}
+            placeholder="Введите логин"
+            required
+          />
           <label>Пароль:</label>
-          <input type="password" value={password} onChange={onChangePassword} placeholder='Введите пароль' />
-          <div className='login__btns'>
-            <button className='btn'>Enter</button>
-          </div>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Введите пароль"
+            required
+          />
+          <div className="btn">Войти</div>
         </form>
       </div>
     </div>
-  )
+  );
 }
 
-export default LoginPage;
+export { LoginPage };
