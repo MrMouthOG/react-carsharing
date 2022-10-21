@@ -1,35 +1,55 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+import { fetchUserByLogin } from '../store/usersSlice';
 import { ReactComponent as LogoSvg } from '../assets/logo.svg';
 
-function LoginPage({ usersList }) {
+function LoginPage() {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
 
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.users.currentUser);
 
-  const onClickEnter = (e) => {
+  useEffect(() => {
+    console.log(currentUser);
+  });
+
+  const singInHandler = (e) => {
     e.preventDefault();
 
-    const currentUser = usersList.find((user) => {
-      return user.login === login && String(user.password) === password;
-    });
+    dispatch(fetchUserByLogin({ login, password }));
 
-    if (currentUser) {
-      const token = `${currentUser.id}${currentUser.login}${currentUser.password}`;
-      const userWithToken = { ...currentUser, isAuth: token };
-      axios.put(
-        `https://634d1979f5d2cc648e9c558d.mockapi.io/users/${userWithToken.id}`,
-        userWithToken,
-      );
-      localStorage.setItem('isAuth', token);
-      navigate('/');
-    } else {
-      alert('Вы ввели неверные данные');
+    console.log(currentUser);
+    if (currentUser?.isAuth) {
+      console.log('CurrentUser is exist and isAuth isnt false');
     }
   };
+
+  // const navigate = useNavigate();
+
+  // const onClickEnter = (e) => {
+  //   e.preventDefault();
+
+  //   const currentUser = usersList.find((user) => {
+  //     return user.login === login && String(user.password) === password;
+  //   });
+
+  //   if (currentUser) {
+  //     const token = `${currentUser.id}${currentUser.login}${currentUser.password}`;
+  //     const userWithToken = { ...currentUser, isAuth: token };
+  //     axios.put(
+  //       `https://634d1979f5d2cc648e9c558d.mockapi.io/users/${userWithToken.id}`,
+  //       userWithToken,
+  //     );
+  //     localStorage.setItem('isAuth', token);
+  //     navigate('/');
+  //   } else {
+  //     alert('Вы ввели неверные данные');
+  //   }
+  // };
 
   return (
     <div className="login__wrapper">
@@ -39,7 +59,7 @@ function LoginPage({ usersList }) {
       </div>
       <div className="login__form">
         <span>Авторизация</span>
-        <form onSubmit={onClickEnter}>
+        <form onSubmit={singInHandler}>
           <label>Логин:</label>
           <input
             type="text"
@@ -56,7 +76,7 @@ function LoginPage({ usersList }) {
             placeholder="Введите пароль"
             required
           />
-          <button className="btn">Войти</button>
+          <div className="btn">Войти</div>
         </form>
       </div>
     </div>

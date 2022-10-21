@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 
+import { fetchRentedCars } from '../store/carsSlice';
 import { setRentedCarsList } from '../store/carsSlice';
 import { CarCard } from '../components/CarCard';
 import { Skeleton } from '../components/CarCard/Skeleton';
@@ -12,32 +13,28 @@ function RentedCarsPage() {
   const rentedCars = useSelector((state) => state.cars.rentedCars);
 
   useEffect(() => {
-    async function fetchRentedCars() {
-      try {
-        const { data, status, statusText } = await axios.get(
-          'https://634d1979f5d2cc648e9c558d.mockapi.io/rentedCars',
-        );
+    dispatch(fetchRentedCars());
+    setIsLoading(false);
+    // async function fetchRentedCars() {
+    //   try {
+    //     const { data, status, statusText } = await axios.get(
+    //       'https://634d1979f5d2cc648e9c558d.mockapi.io/cars?isRent=true',
+    //     );
 
-        if (statusText !== 'OK') {
-          throw new Error('Server error ' + status);
-        }
+    //     if (statusText !== 'OK') {
+    //       throw new Error('Server error ' + status);
+    //     }
 
-        dispatch(setRentedCarsList(data));
-        setIsLoading(false);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    fetchRentedCars();
-  }, []);
+    //     dispatch(setRentedCarsList(data));
+    //     setIsLoading(false);
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+    // }
+    // fetchRentedCars();
+  }, [dispatch]);
 
-  const cancelRent = async (car) => {
-    try {
-      await axios.delete(`https://634d1979f5d2cc648e9c558d.mockapi.io/rentedCars/${car.id}`);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const cancelRent = async (car) => {};
 
   return (
     <div className="rent-car__wrapper">

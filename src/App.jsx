@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
 
-import { setUsersList } from './store/usersSlice';
+import { fetchUserList } from './store/usersSlice';
 import { AddCarPage } from './pages/AddCarPage';
 import { LoginPage } from './pages/LoginPage';
 import { ChoiseCarPage } from './pages/ChoiseCarPage';
@@ -18,22 +17,7 @@ function App() {
   const usersList = useSelector((state) => state.users.users);
 
   useEffect(() => {
-    async function fetchUsers() {
-      try {
-        const { data, status, statusText } = await axios.get(
-          'https://634d1979f5d2cc648e9c558d.mockapi.io/users',
-        );
-
-        if (statusText !== 'OK') {
-          throw new Error('Server error ' + status);
-        }
-
-        dispatch(setUsersList(data));
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    fetchUsers();
+    dispatch(fetchUserList());
     // localStorage.removeItem('isAuth');
   }, [dispatch]);
 
