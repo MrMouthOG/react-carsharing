@@ -1,40 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
 
-import { fetchRentedCars } from '../store/carsSlice';
-import { setRentedCarsList } from '../store/carsSlice';
+import { fetchRentedCars, sendCancelRentCar } from '../store/carsSlice';
 import { CarCard } from '../components/CarCard';
 import { Skeleton } from '../components/CarCard/Skeleton';
 
 function RentedCarsPage() {
-  const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
   const rentedCars = useSelector((state) => state.cars.rentedCars);
+  const isLoading = useSelector((state) => state.cars.isLoading);
 
   useEffect(() => {
     dispatch(fetchRentedCars());
-    setIsLoading(false);
-    // async function fetchRentedCars() {
-    //   try {
-    //     const { data, status, statusText } = await axios.get(
-    //       'https://634d1979f5d2cc648e9c558d.mockapi.io/cars?isRent=true',
-    //     );
-
-    //     if (statusText !== 'OK') {
-    //       throw new Error('Server error ' + status);
-    //     }
-
-    //     dispatch(setRentedCarsList(data));
-    //     setIsLoading(false);
-    //   } catch (error) {
-    //     console.error(error);
-    //   }
-    // }
-    // fetchRentedCars();
   }, [dispatch]);
 
-  const cancelRent = async (car) => {};
+  const cancelRent = async (car) => {
+    dispatch(sendCancelRentCar(car));
+  };
 
   return (
     <div className="rent-car__wrapper">

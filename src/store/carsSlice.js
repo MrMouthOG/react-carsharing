@@ -43,6 +43,22 @@ export const sendRentCar = createAsyncThunk(
     }
   }
 )
+export const sendCancelRentCar = createAsyncThunk(
+  'cars/sendCancelRentCar',
+  async function (car, { rejectWithValue, dispatch }) {
+    try {
+      const { status, statusText } = await axios.put(`https://634d1979f5d2cc648e9c558d.mockapi.io/cars/${car.id}`, car);
+
+      if (statusText !== 'OK') {
+        throw new Error(`Error server, status: ${status}`);
+      }
+
+      dispatch(cancelCarRent(car));
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+)
 
 const carsSlice = createSlice({
   name: 'cars',
@@ -53,14 +69,8 @@ const carsSlice = createSlice({
     rentedCars: [],
   },
   reducers: {
-    setCarsList(state, action) {
-      state.cars = action.payload;
-    },
-    setRentedCarsList(state, action) {
-      state.rentedCars = action.payload;
-    },
     cancelCarRent(state, action) {
-      state.rentedCars = state.rentedCars.filter(item => item.id !== action.payload);
+      state.rentedCars = state.rentedCars.filter(item => item.id !== action.payload.id);
     },
     rentCar(state, action) {
       state.cars = state.cars.filter(item => item.id !== action.payload.id);
@@ -90,5 +100,5 @@ const carsSlice = createSlice({
   }
 });
 
-export const { setCarsList, setRentedCarsList, rentCar } = carsSlice.actions;
+export const { cancelCarRent, rentCar } = carsSlice.actions;
 export default carsSlice.reducer;

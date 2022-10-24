@@ -25,7 +25,7 @@ function CarCard({
       imageUrl,
       cost,
       id,
-      isRent: true,
+      isRent: !isRent,
     };
     btnCarHandler(car);
   };
