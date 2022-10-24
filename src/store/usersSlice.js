@@ -3,27 +3,35 @@ import axios from "axios";
 
 export const fetchUserList = createAsyncThunk(
   'users/fetchUserList',
-  async function () {
-    const { data, status, statusText } = await axios.get('https://634d1979f5d2cc648e9c558d.mockapi.io/users');
+  async function (_, { rejectWithValue }) {
+    try {
+      const { data, status, statusText } = await axios.get('https://634d1979f5d2cc648e9c558d.mockapi.io/users');
 
-    if (statusText !== 'OK') {
-      throw new Error(`Server error, users dont fetched, status: ${status}`);
+      if (statusText !== 'OK') {
+        throw new Error(`Server error, users dont fetched, status: ${status}`);
+      }
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
     }
-
-    return data;
   }
 );
 
 export const fetchUserByLogin = createAsyncThunk(
   'users/fetchUserByLogin',
-  async function (user) {
-    const { data, status, statusText } = await axios.get(`https://634d1979f5d2cc648e9c558d.mockapi.io/users?login=${user.login}&password=${user.password}`)
+  async function (user, { rejectWithValue }) {
+    try {
+      const { data, status, statusText } = await axios.get(`https://634d1979f5d2cc648e9c558d.mockapi.io/users?login=${user.login}&password=${user.password}`)
 
-    if (statusText !== 'OK') {
-      throw new Error(`Server error, user doesnt fetched, status: ${status}`);
+      if (statusText !== 'OK') {
+        throw new Error(`Server error, user doesnt fetched, status: ${status}`);
+      }
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
     }
-
-    return data;
   }
 )
 

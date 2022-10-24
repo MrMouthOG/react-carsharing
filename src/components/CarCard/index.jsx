@@ -6,10 +6,11 @@ function CarCard({
   brand,
   model,
   city,
-  imageUrl,
   options,
+  imageUrl,
   cost,
   id,
+  isRent,
   btnCarHandler,
   btnTitle = 'Арендовать',
 }) {
@@ -17,14 +18,14 @@ function CarCard({
 
   const onRentHandler = async () => {
     const car = {
-      id,
       brand,
       model,
       city,
       options,
       imageUrl,
       cost,
-      parentId: id,
+      id,
+      isRent: true,
     };
     btnCarHandler(car);
   };
