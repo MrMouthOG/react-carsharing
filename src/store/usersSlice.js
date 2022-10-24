@@ -35,6 +35,29 @@ export const fetchUserByLogin = createAsyncThunk(
   }
 )
 
+export const toggleUserToken = createAsyncThunk(
+  'users/toggleUserToken',
+  async function (user, { rejectWithValue, dispatch }) {
+    try {
+      const { status, statusText } = await axios.put(`https://634d1979f5d2cc648e9c558d.mockapi.io/users/${user.id}`, user);
+
+      if (statusText !== 'OK') {
+        throw new Error(`Server error, user doesnt update, status: ${status}`);
+      }
+
+      if (user?.isAuth) {
+        console.log('Auth is true');
+        dispatch(setCurrentUser(user));
+      } else {
+        console.log('Auth is false');
+        dispatch(removeCurrentUser());
+      }
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+)
+
 const usersSlice = createSlice({
   name: 'users',
   initialState: {

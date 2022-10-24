@@ -3,10 +3,10 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { fetchUserByLogin } from '../store/usersSlice';
+import { fetchUserByLogin, setCurrentUser, toggleUserToken } from '../store/usersSlice';
 import { ReactComponent as LogoSvg } from '../assets/logo.svg';
 
-function LoginPage() {
+function LoginPage({ usersList }) {
   const {
     register,
     formState: { errors, isValid },
@@ -21,26 +21,52 @@ function LoginPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const tokenExist = localStorage.getItem('isAuth');
+    const token = localStorage.getItem('isAuth');
 
-    if (tokenExist) {
-      console.log('Token exist, go to home');
+    const check = usersList.find((item) => item.isAuth === token);
+
+    if (check && token !== null) {
+      dispatch(setCurrentUser(check));
       navigate('/');
     }
+  }, [usersList, navigate, dispatch]);
 
-    console.log('useEffect');
+  // useEffect(() => {
+  //   const tokenExist = localStorage.getItem('isAuth');
 
-    if (currentUser) {
-      console.log('User in effect: ', currentUser);
-      const token = `${currentUser.id}${currentUser.login}${currentUser.password}`;
-      localStorage.setItem('isAuth', token);
-      navigate('/');
-    }
-  }, [currentUser, navigate]);
+  //   if (tokenExist) {
+  //     console.log('Token exist, go to home');
+  //     navigate('/');
+  //   }
+
+  //   console.log('useEffect');
+
+  //   if (currentUser) {
+  //     console.log('User in effect: ', currentUser);
+  //     const token = `${currentUser.id}${currentUser.login}${currentUser.password}`;
+  //     localStorage.setItem('isAuth', token);
+  //     navigate('/');
+  //   }
+  // }, [currentUser, navigate]);
 
   const onSubmit = ({ login, password }) => {
-    dispatch(fetchUserByLogin({ login, password }));
-    reset();
+    const isUserExist = usersList.find(
+      (item) => item.login === login && String(item.password) === password,
+    );
+
+    if (isUserExist) {
+      const token = `${isUserExist.id}${isUserExist.login}${isUserExist.password}`;
+      localStorage.setItem('isAuth', token);
+      const userWithToken = { ...isUserExist, isAuth: token };
+      dispatch(toggleUserToken(userWithToken));
+      navigate('/');
+    } else {
+      alert('Вы ввели неверные данные');
+      reset();
+    }
+    //old
+    // dispatch(fetchUserByLogin({ login, password }));
+    // reset();
   };
 
   return (

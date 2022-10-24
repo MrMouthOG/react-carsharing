@@ -11,6 +11,8 @@ function ChoiseCarPage() {
   const cars = useSelector((state) => state.cars.cars);
   const isLoading = useSelector((state) => state.cars.isLoading);
 
+  // const title = cars.lenght ? 'Выберите автомобиль для аренды:' : 'Автомобилей для аренды нет :(';
+
   useEffect(() => {
     dispatch(fetchCars());
   }, [dispatch]);

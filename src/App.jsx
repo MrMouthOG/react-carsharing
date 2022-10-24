@@ -17,7 +17,8 @@ function App() {
   const usersList = useSelector((state) => state.users.users);
 
   useEffect(() => {
-    // dispatch(fetchUserList());
+    dispatch(fetchUserList());
+    // localStorage.setItem('isAuth', '2MrMouthzaq');
     // localStorage.removeItem('isAuth');
   }, [dispatch]);
 
