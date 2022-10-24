@@ -1,36 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { removeCurrentUser } from '../../store/usersSlice';
 import { ReactComponent as LogOutSvg } from '../../assets/logout.svg';
 import styles from './Header.module.scss';
 
 function Header() {
-  const [currentUser, setCurrentUser] = useState(null);
   const [isOpenPopUp, setIsOpenPopUp] = useState(false);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    async function fetchUser() {
-      const token = localStorage.getItem('isAuth');
-      try {
-        const { data } = await axios.get(
-          `https://634d1979f5d2cc648e9c558d.mockapi.io/users?isAuth=${token}`,
-        );
-
-        setCurrentUser(data[0]);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    fetchUser();
-  }, []);
+  const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.users.currentUser);
 
   const logOut = () => {
-    axios.put(`https://634d1979f5d2cc648e9c558d.mockapi.io/users/${currentUser.id}`, {
-      ...currentUser,
-      isAuth: null,
-    });
+    dispatch(removeCurrentUser());
     localStorage.removeItem('isAuth');
     navigate('/login');
   };
@@ -49,7 +32,7 @@ function Header() {
       </div>
       <div className={styles.headerUser} onClick={() => setIsOpenPopUp((prev) => !prev)}>
         <img src={avatar} alt="Avatar" />
-        <span>{login || 'User test'}</span>
+        <span>{login || 'Someone user'}</span>
       </div>
       {isOpenPopUp && (
         <div onClick={logOut} className={styles.headerPopup}>

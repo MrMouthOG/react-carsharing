@@ -88,6 +88,8 @@ a {
       flex-direction: column;
 
       label {
+        display: flex;
+        flex-direction: column;
         font-size: 21px;
         color: #495057;
         margin-bottom: 10px;
