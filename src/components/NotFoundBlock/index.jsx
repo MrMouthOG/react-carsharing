@@ -14,9 +14,11 @@ function NotFoundBlock() {
         Что-то пошло не так
       </h1>
       <p>Попробуйте ещё раз позднее</p>
-      <button onClick={() => navigate(-1)} className='btn'>Назад</button>
+      <button onClick={() => navigate(-1)} className="btn">
+        Назад
+      </button>
     </div>
-  )
+  );
 }
 
 export { NotFoundBlock };

@@ -1,20 +1,47 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const fetchUsers = createAsyncThunk(
-  'users/fetchUsers',
-  async function () {
-    const { data } = await axios.get('https://634d1979f5d2cc648e9c558d.mockapi.io/users');
+export const fetchUserList = createAsyncThunk(
+  'users/fetchUserList',
+  async function (_, { rejectWithValue }) {
+    try {
+      const { data, status, statusText } = await axios.get('https://634d1979f5d2cc648e9c558d.mockapi.io/users');
 
-    return data;
+      if (statusText !== 'OK') {
+        throw new Error(`Server error, users dont fetched, status: ${status}`);
+      }
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
   }
 );
+
+export const fetchUserByLogin = createAsyncThunk(
+  'users/fetchUserByLogin',
+  async function (user, { rejectWithValue }) {
+    try {
+      const { data, status, statusText } = await axios.get(`https://634d1979f5d2cc648e9c558d.mockapi.io/users?login=${user.login}&password=${user.password}`)
+
+      if (statusText !== 'OK') {
+        throw new Error(`Server error, user doesnt fetched, status: ${status}`);
+      }
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+)
 
 const usersSlice = createSlice({
   name: 'users',
   initialState: {
     users: [],
     currentUser: null,
+    isLoading: false,
+    isError: false,
   },
   reducers: {
     setCurrentUser(state, action) {
@@ -23,19 +50,33 @@ const usersSlice = createSlice({
     removeCurrentUser(state) {
       state.currentUser = null;
     },
+    setUsersList(state, action) {
+      state.users = action.payload;
+    }
   },
   extraReducers: {
-    [fetchUsers.pending]: () => {
-      console.log('Загрузка списка пользователей');
+    [fetchUserList.pending]: (state, action) => {
+      state.isLoading = true;
     },
-    [fetchUsers.fulfilled]: (state, action) => {
+    [fetchUserList.fulfilled]: (state, action) => {
       state.users = action.payload;
+      state.isLoading = false;
     },
-    [fetchUsers.rejected]: () => {
-      console.log('Загрузка списка пользователей сломалась');
-    }
+    [fetchUserList.rejected]: (state, action) => {
+      state.isError = true;
+    },
+    [fetchUserByLogin.pending]: (state, action) => {
+      state.isLoading = true;
+    },
+    [fetchUserByLogin.fulfilled]: (state, action) => {
+      state.currentUser = action.payload[0];
+      state.isLoading = false;
+    },
+    [fetchUserByLogin.rejected]: (state, action) => {
+      state.isError = true;
+    },
   }
 });
 
-export const { setCurrentUser, removeCurrentUser } = usersSlice.actions;
+export const { setCurrentUser, removeCurrentUser, setUsersList } = usersSlice.actions;
 export default usersSlice.reducer;

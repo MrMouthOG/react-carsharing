@@ -1,0 +1,38 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  max-height: 75vh;
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 15px;
+  font-size: 24px;
+  
+  h3 {
+    font-size: 26px;
+    font-weight: 400;
+    color: #3D5170;
+    margin-bottom: 15px;
+  }
+
+  .name {
+    display: flex;
+    justify-content: space-between;
+
+    label {
+      width: 100%;
+      input {
+        border: 1px solid #BECAD6;
+        border-radius: 8px;
+        margin: 10px 0;
+        font-size: 22px;
+        padding: 12px;
+      }
+    }
+  }
+
+  label {
+    display: flex;
+    flex-direction: column;
+    color: #495057;
+  }
+}
