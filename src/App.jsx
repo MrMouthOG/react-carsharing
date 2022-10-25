@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchUserList } from './store/usersSlice';
+import { fetchUserList, setCurrentUser } from './store/usersSlice';
 import { AddCarPage } from './pages/AddCarPage';
 import { LoginPage } from './pages/LoginPage';
 import { ChoiseCarPage } from './pages/ChoiseCarPage';
