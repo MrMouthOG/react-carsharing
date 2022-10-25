@@ -1,19 +1,38 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { fetchUserList } from './store/usersSlice';
+import { AddCarPage } from './pages/AddCarPage';
 import { LoginPage } from './pages/LoginPage';
-import { RentCarPage } from './pages/RentCarPage';
+import { ChoiseCarPage } from './pages/ChoiseCarPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { Layout } from './components/Layout';
+import { RequireAuth } from './hoc/RequireAuth';
+import { RentedCarsPage } from './pages/RentedCarsPage';
 
 function App() {
+  const dispatch = useDispatch();
+
+  const usersList = useSelector((state) => state.users.users);
+
+  useEffect(() => {
+    dispatch(fetchUserList());
+  }, [dispatch]);
+
   return (
     <Routes>
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/" element={<Layout />}>
-        <Route path="/" element={<RentCarPage />} />
-        <Route path="/add" element={<h1>Добавить автомобиль</h1>} />
-        <Route path="/rented" element={<h1>Арендованные автомобили</h1>} />
+      <Route path="/login" element={<LoginPage usersList={usersList} />} />
+      <Route
+        path="/"
+        element={
+          <RequireAuth>
+            <Layout />
+          </RequireAuth>
+        }>
+        <Route path="/" element={<ChoiseCarPage />} />
+        <Route path="/add" element={<AddCarPage />} />
+        <Route path="/rented" element={<RentedCarsPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>

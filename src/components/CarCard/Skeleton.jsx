@@ -1,12 +1,9 @@
 import React from 'react';
 import ContentLoader from 'react-content-loader';
 
-import styles from './CarCard.module.scss';
-
 function Skeleton() {
   return (
     <ContentLoader
-      // className={styles.rentItem}
       speed={2}
       width={1112}
       height={135}
@@ -17,7 +14,6 @@ function Skeleton() {
       <rect x="268" y="50" rx="0" ry="0" width="270" height="18" />
       <rect x="268" y="70" rx="0" ry="0" width="270" height="18" />
       <rect x="268" y="30" rx="0" ry="0" width="270" height="18" />
-      {/* <rect x="362" y="33" rx="0" ry="0" width="51" height="16" /> */}
       <rect x="560" y="25" rx="0" ry="0" width="137" height="20" />
       <rect x="560" y="50" rx="0" ry="0" width="137" height="20" />
       <rect x="560" y="75" rx="0" ry="0" width="137" height="20" />
