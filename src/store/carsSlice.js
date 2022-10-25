@@ -43,6 +43,7 @@ export const sendRentCar = createAsyncThunk(
     }
   }
 )
+
 export const sendCancelRentCar = createAsyncThunk(
   'cars/sendCancelRentCar',
   async function (car, { rejectWithValue, dispatch }) {
@@ -54,6 +55,23 @@ export const sendCancelRentCar = createAsyncThunk(
       }
 
       dispatch(cancelCarRent(car));
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+)
+
+export const sendCar = createAsyncThunk(
+  'cars/sendCar',
+  async function (car, { rejectWithValue, dispatch }) {
+    try {
+      const { status, statusText } = await axios.post('https://634d1979f5d2cc648e9c558d.mockapi.io/cars', car); //no-serialized???
+
+      if (statusText !== 'OK') {
+        throw new Error(`Error server, car doesnt put, stauts: ${status}`);
+      }
+
+      dispatch(addCar(car));
     } catch (error) {
       return rejectWithValue(error);
     }
@@ -74,6 +92,9 @@ const carsSlice = createSlice({
     },
     rentCar(state, action) {
       state.cars = state.cars.filter(item => item.id !== action.payload.id);
+    },
+    addCar(state, action) {
+      state.cars.push(action.payload);
     }
   },
   extraReducers: {
@@ -100,5 +121,5 @@ const carsSlice = createSlice({
   }
 });
 
-export const { cancelCarRent, rentCar } = carsSlice.actions;
+export const { cancelCarRent, rentCar, addCar } = carsSlice.actions;
 export default carsSlice.reducer;

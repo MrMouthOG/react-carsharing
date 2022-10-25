@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { removeCurrentUser, toggleUserToken } from '../../store/usersSlice';
+import { toggleUserToken } from '../../store/usersSlice';
 import { ReactComponent as LogOutSvg } from '../../assets/logout.svg';
 import styles from './Header.module.scss';
 
@@ -11,7 +11,6 @@ function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.users.currentUser);
-  const usersList = useSelector((state) => state.users.users);
 
   const logOut = () => {
     dispatch(toggleUserToken({ ...currentUser, isAuth: null }));

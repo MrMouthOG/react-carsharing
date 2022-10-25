@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { fetchUserByLogin, setCurrentUser, toggleUserToken } from '../store/usersSlice';
+import { setCurrentUser, toggleUserToken } from '../store/usersSlice';
 import { ReactComponent as LogoSvg } from '../assets/logo.svg';
 
 function LoginPage({ usersList }) {
@@ -17,7 +17,6 @@ function LoginPage({ usersList }) {
   });
 
   const dispatch = useDispatch();
-  const currentUser = useSelector((state) => state.users.currentUser);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,24 +29,6 @@ function LoginPage({ usersList }) {
       navigate('/');
     }
   }, [usersList, navigate, dispatch]);
-
-  // useEffect(() => {
-  //   const tokenExist = localStorage.getItem('isAuth');
-
-  //   if (tokenExist) {
-  //     console.log('Token exist, go to home');
-  //     navigate('/');
-  //   }
-
-  //   console.log('useEffect');
-
-  //   if (currentUser) {
-  //     console.log('User in effect: ', currentUser);
-  //     const token = `${currentUser.id}${currentUser.login}${currentUser.password}`;
-  //     localStorage.setItem('isAuth', token);
-  //     navigate('/');
-  //   }
-  // }, [currentUser, navigate]);
 
   const onSubmit = ({ login, password }) => {
     const isUserExist = usersList.find(
@@ -64,9 +45,6 @@ function LoginPage({ usersList }) {
       alert('Вы ввели неверные данные');
       reset();
     }
-    //old
-    // dispatch(fetchUserByLogin({ login, password }));
-    // reset();
   };
 
   return (

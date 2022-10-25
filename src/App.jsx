@@ -18,8 +18,6 @@ function App() {
 
   useEffect(() => {
     dispatch(fetchUserList());
-    // localStorage.setItem('isAuth', '2MrMouthzaq');
-    // localStorage.removeItem('isAuth');
   }, [dispatch]);
 
   return (

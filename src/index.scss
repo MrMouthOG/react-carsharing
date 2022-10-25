@@ -46,6 +46,10 @@ a {
     background: darken(#007bff, 7%);
 
   }
+
+  &:disabled {
+    background: #BECAD6;
+  }
 }
 
 .login__wrapper {
@@ -126,6 +130,7 @@ a {
     max-height: 75vh;
     background-color: #fff;
     border-radius: 15px;
+    overflow: auto;
   }
 
   .btn {
