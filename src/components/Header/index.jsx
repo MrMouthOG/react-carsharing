@@ -3,7 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { setCurrentUser, toggleUserToken } from '../../store/usersSlice';
+import { setSearchString, clearSearchString } from '../../store/searchSlice';
 import { ReactComponent as LogOutSvg } from '../../assets/logout.svg';
+import { ReactComponent as CloseSvg } from '../../assets/close.svg';
 import styles from './Header.module.scss';
 
 function Header() {
@@ -12,6 +14,7 @@ function Header() {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.users.currentUser);
   const usersList = useSelector((state) => state.users.users);
+  const searchValue = useSelector((state) => state.search.searchString);
 
   useEffect(() => {
     const token = localStorage.getItem('isAuth');
@@ -21,7 +24,7 @@ function Header() {
     if (check && token !== null) {
       dispatch(setCurrentUser(check));
     }
-  });
+  }, [dispatch, usersList]);
 
   const logOut = () => {
     dispatch(toggleUserToken({ ...currentUser, isAuth: null }));
@@ -36,7 +39,13 @@ function Header() {
     <header>
       <div className={styles.headerSearch}>
         <img src="/img/search.png" alt="Search" />
-        <input type="text" placeholder="Поиск..." />
+        <input
+          value={searchValue}
+          onChange={(e) => dispatch(setSearchString(e.target.value))}
+          type="text"
+          placeholder="Поиск..."
+        />
+        {searchValue && <CloseSvg onClick={() => dispatch(clearSearchString())} />}
       </div>
       <div className={styles.headerNotifications}>
         <img src="/img/notifications.png" alt="Notifications" />

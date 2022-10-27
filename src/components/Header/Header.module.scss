@@ -9,6 +9,7 @@ header {
   grid-row: 1 / 2;
 
   .headerSearch {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,15 +19,30 @@ header {
     img {
       width: 24px;
       height: 24px;
-
     }
 
     input {
-      font-size: 20px;
+      font-size: 22px;
       border: none;
       padding: 10px;
       width: 100%;
       margin-left: 5px;
+      outline: none;
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
+      opacity: 0.3;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 1;
+        path {
+          fill: #007BFF;
+        }
+      }
+      
     }
   }
 
@@ -72,6 +88,7 @@ header {
     top: 85px;
     background-color: white;
     border-radius: 8px;
+    border: 1px solid #CACEDB;
 
     ul {
       li {

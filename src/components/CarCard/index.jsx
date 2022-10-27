@@ -11,6 +11,7 @@ function CarCard({
   cost,
   id,
   isRent,
+  color,
   btnCarHandler,
   btnTitle = 'Арендовать',
 }) {
@@ -34,12 +35,12 @@ function CarCard({
     <div className={styles.rentItem}>
       <img src={imageUrl} alt="Car" />
       <div className={styles.rentItemDescription}>
-        <div>
-          <b>{model}</b> в <b>{city}</b>, <span>Нариманова, 45</span>
+        <div className={styles.name}>{`${brand} ${model} `}</div>
+        <div className={styles.color}>
+          Цвет: <span>{color ? color : 'Не указан'}</span>
         </div>
-        <div>12.06.2019 12:00 — 13.06.2019 12:00</div>
-        <div>
-          Цвет: <span>Голубой</span>
+        <div className={styles.color}>
+          Город: <span>{city ? city : 'Не указан'}</span>
         </div>
       </div>
       <div className={styles.rentItemOptions}>

@@ -1,11 +1,12 @@
 import React from 'react';
 
 import { AddCarForm } from '../components/AddCarForm';
+import { Title } from '../components/Title';
 
 function AddCarPage() {
   return (
     <div className="add-car__wrapper">
-      <h2 className="title">Добавить автомобиль</h2>
+      <Title title="Добавить автомобиль" />
       <AddCarForm />
     </div>
   );

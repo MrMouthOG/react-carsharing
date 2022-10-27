@@ -3,27 +3,35 @@ import axios from "axios";
 
 export const fetchCars = createAsyncThunk(
   'cars/fetchCars',
-  async function () {
-    const { data, status, statusText } = await axios.get('https://634d1979f5d2cc648e9c558d.mockapi.io/cars?isRent=false');
+  async function (_, { rejectWithValue }) {
+    try {
+      const { data, status, statusText } = await axios.get(`https://634d1979f5d2cc648e9c558d.mockapi.io/cars?isRent=false`);
 
-    if (statusText !== 'OK') {
-      throw new Error(`Error server, cars doesnt download, status: ${status}`);
+      if (statusText !== 'OK') {
+        throw new Error(`Error server, cars doesnt get, status: ${status}`);
+      }
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
     }
-
-    return data;
   }
 )
 
 export const fetchRentedCars = createAsyncThunk(
   'cars/fetchRentedCars',
-  async function () {
-    const { data, status, statusText } = await axios.get('https://634d1979f5d2cc648e9c558d.mockapi.io/cars?isRent=true');
+  async function (_, { rejectWithValue }) {
+    try {
+      const { data, status, statusText } = await axios.get(`https://634d1979f5d2cc648e9c558d.mockapi.io/cars?isRent=true`);
 
-    if (statusText !== 'OK') {
-      throw new Error(`Error server, rented cars doesnt download, status: ${status}`);
+      if (statusText !== 'OK') {
+        throw new Error(`Error server, rented cars doesnt get, status: ${status}`);
+      }
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
     }
-
-    return data;
   }
 )
 
@@ -98,7 +106,7 @@ const carsSlice = createSlice({
     }
   },
   extraReducers: {
-    [fetchCars.pending]: (state, action) => {
+    [fetchCars.pending]: (state) => {
       state.isLoading = true;
     },
     [fetchCars.fulfilled]: (state, action) => {
@@ -106,9 +114,9 @@ const carsSlice = createSlice({
       state.isLoading = false;
     },
     [fetchCars.rejected]: (state, action) => {
-      state.isError = true;
+      state.isError = action.payload;
     },
-    [fetchRentedCars.pending]: (state, action) => {
+    [fetchRentedCars.pending]: (state) => {
       state.isLoading = true;
     },
     [fetchRentedCars.fulfilled]: (state, action) => {
@@ -116,8 +124,8 @@ const carsSlice = createSlice({
       state.isLoading = false;
     },
     [fetchRentedCars.rejected]: (state, action) => {
-      state.isError = true;
-    },
+      state.isError = action.payload;
+    }
   }
 });
 

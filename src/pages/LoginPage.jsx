@@ -57,7 +57,7 @@ function LoginPage({ usersList }) {
         <span>Авторизация</span>
         <form onSubmit={handleSubmit(onSubmit)}>
           <label>
-            Логин:
+            Логин
             <input
               {...register('login', {
                 required: 'Поле обязательно для заполнения',
@@ -69,9 +69,9 @@ function LoginPage({ usersList }) {
               placeholder="Введите логин"
             />
           </label>
-          <div>{errors?.login && (errors?.login?.message || 'Ошибка!')}</div>
+          <div className="error">{errors?.login && (errors?.login?.message || 'Ошибка!')}</div>
           <label>
-            Пароль:
+            Пароль
             <input
               {...register('password', {
                 required: 'Поле обязательно для заполнения',
@@ -84,7 +84,7 @@ function LoginPage({ usersList }) {
               placeholder="Введите пароль"
             />
           </label>
-          <div>{errors?.password && (errors?.password?.message || 'Ошибка')}</div>
+          <div className="error">{errors?.password && (errors?.password?.message || 'Ошибка')}</div>
           <input type="submit" value="Войти" className="btn" disabled={!isValid} />
         </form>
       </div>
