@@ -1,5 +1,6 @@
 header {
   display: flex;
+  position: relative;
   height: 76px;
   align-items: center;
   background-color: #fff;
@@ -8,6 +9,7 @@ header {
   grid-row: 1 / 2;
 
   .headerSearch {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,15 +19,30 @@ header {
     img {
       width: 24px;
       height: 24px;
-
     }
 
     input {
-      font-size: 20px;
+      font-size: 22px;
       border: none;
       padding: 10px;
       width: 100%;
       margin-left: 5px;
+      outline: none;
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
+      opacity: 0.3;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 1;
+        path {
+          fill: #007BFF;
+        }
+      }
+      
     }
   }
 
@@ -49,6 +66,7 @@ header {
     justify-content: space-evenly;
     align-items: center;
     width: 200px;
+    cursor: pointer;
 
     img {
       width: 50px;
@@ -60,6 +78,44 @@ header {
       margin-left: 10px;
       font-size: 20px;
       font-weight: 300;
+    }
+  }
+
+  .headerPopup {
+    position: absolute;
+    width: 200px;
+    right: 0;
+    top: 85px;
+    background-color: white;
+    border-radius: 8px;
+    border: 1px solid #CACEDB;
+
+    ul {
+      li {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        padding: 10px;
+        cursor: pointer;
+
+        svg {
+          width: 25px;
+          height: 25px;
+
+          path {
+            fill: #CACEDB;
+          }
+        }
+
+        &:hover {
+          color: #007BFF;
+          svg {
+            path {
+              fill: #007BFF;
+            }
+          }
+        }
+      }
     }
   }
 }

@@ -21,6 +21,13 @@ a {
   }
 }
 
+// .title {
+//   font-size: 32px;
+//   font-weight: 400;
+//   color: #3D5170;
+//   padding-bottom: 20px;
+// }
+
 .btn {
   width: 220px;
   height: 58px;
@@ -39,6 +46,15 @@ a {
     background: darken(#007bff, 7%);
 
   }
+
+  &:disabled {
+    background: #BECAD6;
+  }
+}
+
+.error {
+  font-size: 18px;
+  color: #FE5353;
 }
 
 .login__wrapper {
@@ -46,34 +62,31 @@ a {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 100vw;
   height: 100vh;
   background-color: #f5f6f8;
 
   .login__logo {
     display: flex;
-    margin-bottom: 33px;
+    margin-bottom: 10px;
     
     span {
       font-size: 48px;
-      font-weight: 400;
       align-self: center;
-      margin-left: 23px;
+      margin-left: 10px;
     }
   }
 
   .login__form {
-    width: 753px;
-    height: 430px;
+    width: 550px;
     background-color: #FFFFFF;
     border-radius: 18px;
-    padding: 40px 35px;
+    padding: 20px;
 
     span {
       display: block;
       font-size: 35px;
       color: #3D5170;
-      margin-bottom: 30px;
+      margin-bottom: 10px;
     }
 
     form {
@@ -81,9 +94,10 @@ a {
       flex-direction: column;
 
       label {
+        display: flex;
+        flex-direction: column;
         font-size: 21px;
         color: #495057;
-        margin-bottom: 10px;
       }
 
       input {
@@ -91,7 +105,7 @@ a {
         font-size: 22px;
         border: 1px solid #BECAD6;
         border-radius: 6px;
-        margin-bottom: 15px;
+        margin: 8px 0;
       }
     }
   }
@@ -113,16 +127,11 @@ a {
 }
 
 .rent-car__wrapper {
-  h2 {
-    font-size: 32px;
-    font-weight: 400;
-    color: #3D5170;
-    padding-bottom: 20px;
-  }
-
   .rent-car__items {
+    max-height: 75vh;
     background-color: #fff;
     border-radius: 15px;
+    overflow: auto;
   }
 
   .btn {
