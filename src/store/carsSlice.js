@@ -125,6 +125,15 @@ const carsSlice = createSlice({
     },
     [fetchRentedCars.rejected]: (state, action) => {
       state.isError = action.payload;
+    },
+    [sendRentCar.rejected]: (state, action) => {
+      state.isError = action.payload;
+    },
+    [sendCancelRentCar.rejected]: (state, action) => {
+      state.isError = action.payload;
+    },
+    [sendCar.rejected]: (state, action) => {
+      state.isError = action.payload;
     }
   }
 });

@@ -37,25 +37,19 @@ function CarCard({
       <div className={styles.rentItemDescription}>
         <div className={styles.name}>{`${brand} ${model} `}</div>
         <div className={styles.color}>
-          Цвет: <span>{color ? color : 'Не указан'}</span>
+          Цвет: <span>{color}</span>
         </div>
         <div className={styles.color}>
-          Город: <span>{city ? city : 'Не указан'}</span>
+          Город: <span>{city}</span>
         </div>
       </div>
-      <div className={styles.rentItemOptions}>
-        <label>
-          <input type="checkbox" disabled={!fullTank} />
-          Полный бак
-        </label>
-        <label>
-          <input type="checkbox" disabled={!babyChair} />
-          Детское кресло
-        </label>
-        <label>
-          <input type="checkbox" disabled={!rightHand} />
-          Правый руль
-        </label>
+      <div>
+        <div>Дополнительные опции</div>
+        <ul>
+          <li>Полный бак: {fullTank ? 'Да' : 'Нет'}</li>
+          <li>Десткое кресло: {babyChair ? 'Да' : 'Нет'}</li>
+          <li>Правый руль: {rightHand ? 'Да' : 'Нет'}</li>
+        </ul>
       </div>
       <div className={styles.rentItemCost}>{cost} руб. сутки</div>
       <button onClick={onRentHandler} className="btn">

@@ -5,6 +5,7 @@ import { fetchRentedCars, sendCancelRentCar } from '../store/carsSlice';
 import { CarCard } from '../components/CarCard';
 import { Skeleton } from '../components/CarCard/Skeleton';
 import { Title } from '../components/Title';
+import { NoCars } from '../components/NoCars';
 
 function RentedCarsPage() {
   const dispatch = useDispatch();
@@ -31,10 +32,18 @@ function RentedCarsPage() {
       <CarCard key={rentedCar.id} btnCarHandler={cancelRent} btnTitle="Отменить" {...rentedCar} />
     ));
 
+  const render = isLoading ? (
+    skeletons
+  ) : mappedRentedCars.length > 0 ? (
+    mappedRentedCars
+  ) : (
+    <NoCars />
+  );
+
   return (
     <div className="rent-car__wrapper">
       <Title title="Арендованные автомобили" />
-      <div className="rent-car__items">{isLoading ? skeletons : mappedRentedCars}</div>
+      <div className="rent-car__items">{render}</div>
     </div>
   );
 }

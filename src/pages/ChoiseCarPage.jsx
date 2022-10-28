@@ -5,6 +5,7 @@ import { fetchCars, sendRentCar } from '../store/carsSlice';
 import { CarCard } from '../components/CarCard';
 import { Skeleton } from '../components/CarCard/Skeleton';
 import { Title } from '../components/Title';
+import { NoCars } from '../components/NoCars';
 
 function ChoiseCarPage() {
   const dispatch = useDispatch();
@@ -30,10 +31,12 @@ function ChoiseCarPage() {
     )
     .map((car) => <CarCard key={car.id} btnCarHandler={rentCarHandler} {...car} />);
 
+  const render = isLoading ? skeletons : mappedCars.length > 0 ? mappedCars : <NoCars />;
+
   return (
     <div className="rent-car__wrapper">
       <Title title="Выберите автомобиль для аренды" />
-      <div className="rent-car__items">{isLoading ? skeletons : mappedCars}</div>
+      <div className="rent-car__items">{render}</div>
     </div>
   );
 }

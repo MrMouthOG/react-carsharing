@@ -18,23 +18,6 @@ export const fetchUserList = createAsyncThunk(
   }
 );
 
-export const fetchUserByLogin = createAsyncThunk(
-  'users/fetchUserByLogin',
-  async function (user, { rejectWithValue }) {
-    try {
-      const { data, status, statusText } = await axios.get(`https://634d1979f5d2cc648e9c558d.mockapi.io/users?login=${user.login}&password=${user.password}`)
-
-      if (statusText !== 'OK') {
-        throw new Error(`Server error, user doesnt fetched, status: ${status}`);
-      }
-
-      return data;
-    } catch (error) {
-      return rejectWithValue(error);
-    }
-  }
-)
-
 export const toggleUserToken = createAsyncThunk(
   'users/toggleUserToken',
   async function (user, { rejectWithValue, dispatch }) {
@@ -46,10 +29,8 @@ export const toggleUserToken = createAsyncThunk(
       }
 
       if (user?.isAuth) {
-        console.log('Auth is true');
         dispatch(setCurrentUser(user));
       } else {
-        console.log('Auth is false');
         dispatch(removeCurrentUser());
       }
     } catch (error) {
@@ -78,7 +59,7 @@ const usersSlice = createSlice({
     }
   },
   extraReducers: {
-    [fetchUserList.pending]: (state, action) => {
+    [fetchUserList.pending]: (state) => {
       state.isLoading = true;
     },
     [fetchUserList.fulfilled]: (state, action) => {
@@ -86,18 +67,11 @@ const usersSlice = createSlice({
       state.isLoading = false;
     },
     [fetchUserList.rejected]: (state, action) => {
-      state.isError = true;
+      state.isError = action.payload;
     },
-    [fetchUserByLogin.pending]: (state, action) => {
-      state.isLoading = true;
-    },
-    [fetchUserByLogin.fulfilled]: (state, action) => {
-      state.currentUser = action.payload[0];
-      state.isLoading = false;
-    },
-    [fetchUserByLogin.rejected]: (state, action) => {
-      state.isError = true;
-    },
+    [toggleUserToken.rejected]: (state, action) => {
+      state.isError = action.payload;
+    }
   }
 });
 

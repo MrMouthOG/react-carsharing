@@ -7,6 +7,20 @@
   padding: 15px;
   font-size: 24px;
   overflow: auto;
+  color: #495057;
+
+
+  .textInput {
+    width: 100%;
+
+    input {
+      border: 1px solid #BECAD6;
+      border-radius: 8px;
+      margin: 10px 0;
+      font-size: 22px;
+      padding: 15px;
+    }
+  }
 
   .row {
     display: flex;
@@ -15,17 +29,6 @@
     label:first-child {
       margin-right: 20px;
     }
-
-    label {
-      width: 100%;
-      input {
-        border: 1px solid #BECAD6;
-        border-radius: 8px;
-        margin: 10px 0;
-        font-size: 22px;
-        padding: 15px;
-      }
-    }
   }
 
   .rowWithSelect {
@@ -33,29 +36,34 @@
 
     label {
       width: 100%;
-      margin-right: 20px;
 
       select {
         border: 1px solid #BECAD6;
         border-radius: 8px;
         padding: 15px;
+        margin: 10px 0;
         font-size: 18px;
         color: #495057;
       }
     }
 
-    .options {
+    label:first-child {
+      margin-right: 20px;
+    }
+  }
+
+  .options {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+
+    label {
       display: flex;
-      align-items: center;
-      width: 100%;
+      flex-direction: row;
 
-      label {
-        display: flex;
-        flex-direction: row;
-
-        input {
-          margin-right: 10px;
-        }
+      input {
+        margin-right: 10px;
       }
     }
   }
@@ -67,7 +75,6 @@
   label {
     display: flex;
     flex-direction: column;
-    color: #495057;
   }
 }
 

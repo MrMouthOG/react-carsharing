@@ -86,6 +86,7 @@ header {
     width: 200px;
     right: 0;
     top: 85px;
+    animation: popup 0.3s ease-in-out;
     background-color: white;
     border-radius: 8px;
     border: 1px solid #CACEDB;
@@ -117,5 +118,23 @@ header {
         }
       }
     }
+  }
+}
+
+@keyframes popup {
+  0% {
+    top: 42px;
+    opacity: 0;
+  }
+  10% {
+    top: 50px;
+    opacity: 0;
+  }
+  20% {
+    top: 55px;
+    opacity: 0;
+  }
+  100% {
+    top: 85px;
   }
 }

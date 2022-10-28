@@ -21,20 +21,13 @@ a {
   }
 }
 
-// .title {
-//   font-size: 32px;
-//   font-weight: 400;
-//   color: #3D5170;
-//   padding-bottom: 20px;
-// }
-
 .btn {
   width: 220px;
   height: 58px;
   border: none;
   border-radius: 8px;
   background-color: #007bff;
-  font-size: 23px;
+  font-size: 20px;
   cursor: pointer;
   color: #ffffff;
 
@@ -137,4 +130,12 @@ a {
   .btn {
     width: 150px;
   }
+}
+
+.nocars {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 15%;
 }
