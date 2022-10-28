@@ -2,17 +2,37 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px;
+  padding: 5px 10px;
+  font-size: 18px;
+  color: #868E96;
 
   img {
-    width: 200px;
-    height: 105px;
-    border-radius: 8px;
+    width: 220px;
+    height: 120px;
+    border-radius: 5px;
   }
 
   &Description {
     display: flex;
     flex-direction: column;
+    width: 200px;
+
+    .name {
+      font-size: 18px;
+      font-weight: 700;
+      color: #3C506F;
+    }
+
+    .name::first-letter {
+      text-transform: uppercase;
+    }
+
+    .color {
+      span {
+        color: #3c506f;
+        font-weight: 500;
+      }
+    }
   }
 
   &Options {
@@ -31,7 +51,8 @@
   }
 
   &Cost {
-    font-size: 24px;
+    width: 180px;
+    font-size: 22px;
     color: #165181;
   }
 }

@@ -1,0 +1,135 @@
+.addForm {
+  display: flex;
+  flex-direction: column;
+  max-height: 75vh;
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 15px;
+  font-size: 24px;
+  overflow: auto;
+  color: #495057;
+
+
+  .textInput {
+    width: 100%;
+
+    input {
+      border: 1px solid #BECAD6;
+      border-radius: 8px;
+      margin: 10px 0;
+      font-size: 22px;
+      padding: 15px;
+    }
+  }
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+
+    label:first-child {
+      margin-right: 20px;
+    }
+  }
+
+  .rowWithSelect {
+    display: flex;
+
+    label {
+      width: 100%;
+
+      select {
+        border: 1px solid #BECAD6;
+        border-radius: 8px;
+        padding: 15px;
+        margin: 10px 0;
+        font-size: 18px;
+        color: #495057;
+      }
+    }
+
+    label:first-child {
+      margin-right: 20px;
+    }
+  }
+
+  .options {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+
+    label {
+      display: flex;
+      flex-direction: row;
+
+      input {
+        margin-right: 10px;
+      }
+    }
+  }
+
+  input:last-child {
+    margin: 10px 0;
+  }
+
+  label {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  visibility: hidden;
+  opacity: 0;
+  overflow: hidden;
+}
+
+.overlayVisible {
+  visibility: visible;
+  opacity: 1;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  background-color: #fff;
+  padding: 10px 15px;
+  border-radius: 10px;
+
+  h2, h3 {
+    color: #3D5170;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  h3 {
+    color: #818EA3;
+
+    span {
+      color: #3D5170;
+    }
+  }
+  
+  img {
+    width: 450px;
+    height: 280px;
+    border-radius: 8px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+  }
+
+  button {
+    margin: 0 auto;
+  }
+}

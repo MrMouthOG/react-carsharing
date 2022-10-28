@@ -2,33 +2,61 @@ import React from 'react';
 
 import styles from './CarCard.module.scss';
 
-function CarCard({ model, city, imageUrl, tank, baby, right, price }) {
+function CarCard({
+  brand,
+  model,
+  city,
+  options,
+  imageUrl,
+  cost,
+  id,
+  isRent,
+  color,
+  btnCarHandler,
+  btnTitle = 'Арендовать',
+}) {
+  const [fullTank, babyChair, rightHand] = options;
+
+  const onRentHandler = async () => {
+    const car = {
+      brand,
+      model,
+      city,
+      options,
+      imageUrl,
+      cost,
+      id,
+      isRent: !isRent,
+    };
+    btnCarHandler(car);
+  };
+
   return (
     <div className={styles.rentItem}>
-      <img src={imageUrl} alt='Car' />
+      <img src={imageUrl} alt="Car" />
       <div className={styles.rentItemDescription}>
-        <div><b>{model}</b> в <b>{city}</b>, <span>Нариманова, 45</span></div>
-        <div>12.06.2019 12:00 — 13.06.2019 12:00</div>
-        <div>Цвет: <span>Голубой</span></div>
+        <div className={styles.name}>{`${brand} ${model} `}</div>
+        <div className={styles.color}>
+          Цвет: <span>{color}</span>
+        </div>
+        <div className={styles.color}>
+          Город: <span>{city}</span>
+        </div>
       </div>
-      <div className={styles.rentItemOptions}>
-        <label>
-          <input type='checkbox' disabled={!tank} />
-          Полный бак
-        </label>
-        <label>
-          <input type='checkbox' disabled={!baby} />
-          Детское кресло
-        </label>
-        <label>
-          <input type='checkbox' disabled={!right} />
-          Правый руль
-        </label>
+      <div>
+        <div>Дополнительные опции</div>
+        <ul>
+          <li>Полный бак: {fullTank ? 'Да' : 'Нет'}</li>
+          <li>Десткое кресло: {babyChair ? 'Да' : 'Нет'}</li>
+          <li>Правый руль: {rightHand ? 'Да' : 'Нет'}</li>
+        </ul>
       </div>
-      <div className={styles.rentItemCost}>{price} руб. сутки</div>
-      <button className="btn">Арендовать</button>
+      <div className={styles.rentItemCost}>{cost} руб. сутки</div>
+      <button onClick={onRentHandler} className="btn">
+        {btnTitle}
+      </button>
     </div>
-  )
+  );
 }
 
 export { CarCard };
